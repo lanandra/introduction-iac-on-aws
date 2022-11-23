@@ -17,7 +17,7 @@ data "aws_ami" "ubuntu" {
 
 # Reference for EC2 user-data
 data "template_file" "user_data" {
-  template = templatefile("${path.module}/user-data.sh", {msg = "user-data"})
+  template = templatefile("${path.module}/user-data.sh", {file = "user-data"})
 }
 
 # Setup EC2 instance using ubuntu AMI
@@ -38,7 +38,7 @@ resource "aws_instance" "ec2_lamongan_dev_demo_iac_remote" {
   }
 
   tags = {
-    Name                   = "lamongan-dev-demo-iac-local"
+    Name                   = "lamongan-dev-demo-iac-remote"
     "lanandra:environment" = "demo"
     "lanandra:owner"       = "Luthfi"
   }

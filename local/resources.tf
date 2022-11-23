@@ -15,11 +15,6 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-# Reference for EC2 user-data
-/*data "template_file" "user_data" {
-  template = templatefile("${path.module}/user-data.sh", {msg = "user-data"})
-}*/
-
 # Setup EC2 instance using ubuntu AMI
 resource "aws_instance" "ec2_lamongan_dev_demo_iac_local" {
   ami                         = data.aws_ami.ubuntu.id
