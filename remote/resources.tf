@@ -16,9 +16,9 @@ data "aws_ami" "ubuntu" {
 }
 
 # Reference for EC2 user-data
-/*data "template_file" "user_data" {
+data "template_file" "user_data" {
   template = templatefile("${path.module}/user-data.sh", {msg = "user-data"})
-}*/
+}
 
 # Setup EC2 instance using ubuntu AMI
 resource "aws_instance" "ec2_lamongan_dev_demo_iac_remote" {
@@ -26,7 +26,7 @@ resource "aws_instance" "ec2_lamongan_dev_demo_iac_remote" {
   instance_type               = var.ec2_instance_type
   key_name                    = var.ec2_keypair
   iam_instance_profile        = var.ec2_instace_profile
-  user_data                   = templatefile("${path.module}/user-data.sh.tpl", {file = "user-data"})
+  user_data                   = data.template_file.user_data.rendered
   associate_public_ip_address = var.associate_public_ip
   vpc_security_group_ids      = [var.vpc_security_group]
   subnet_id                   = var.vpc_subnet[1]
